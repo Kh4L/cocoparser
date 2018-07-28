@@ -121,8 +121,13 @@ int main(int argc, char**argv)
 
   auto& amm = json_parser.GetAnnotationsMultimap();
 
-  auto range = amm.equal_range(289343);
+  start = std::chrono::system_clock::now();
 
+  constexpr int im_id = 289343;
+  auto range = amm.equal_range(im_id);
+  end = std::chrono::system_clock::now();
+  elapsed_seconds = end-start;
+  std::cout << "Found annotations for " << im_id << " in " << elapsed_seconds.count() << "s\n";
   for (auto it = range.first; it != range.second; ++it) {
     Annotation& an = it->second;
     std::cout << "Found Annotation for " << it->first << ": " << an << std::endl;
